@@ -2,14 +2,14 @@
 using System.Reflection.Metadata.Ecma335;
 using System.Transactions;
 
-namespace Statistical_Modelling
+namespace StatisticalModelling
 {
     public class LinearRegression
     {
         private double[] _xData;
         private double[] _yData;
         private double _xBar, _yBar; // sample means
-        private double betaZero, betaOne; // least squares coefficients
+        public double betaZero, betaOne; // least squares coefficients
         private int _n;
 
         public LinearRegression(double[] _xData, double[] _yData) 
@@ -48,6 +48,17 @@ namespace Statistical_Modelling
 
             this.betaOne = numerator / denominator;
             this.betaZero = this._yBar - (this.betaOne * this._xBar);
+        }
+
+        public double[] RegressionResults()
+        {
+            double[] prediction = new double[100];
+            for (int i = 0; i < 100; i++)
+            {
+                prediction[i] = (this.betaOne * i) + this.betaZero;
+            }
+
+            return prediction;
         }
 
         public double StandardDeviation()
@@ -119,7 +130,7 @@ namespace Statistical_Modelling
 
         public double RSquared()
         {
-            reuturn 1 - (ResidualSumofSquares() / TotalSumOfSquares());
+            return 1 - (ResidualSumofSquares() / TotalSumOfSquares());
         }
     }
 }
